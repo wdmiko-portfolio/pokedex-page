@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
   imports: [NgClass],
   template: `
  <button 
-  class="custom-button animation-up-down" 
+  class="custom-button animation-press" 
   [ngClass]="[color, textcolor]" 
   [disabled]="disabled"
 >

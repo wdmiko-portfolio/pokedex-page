@@ -7,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
+
     <button class="surprise-button animation-up-down" (click)="onSurpriseClick()">
-      <span class="icon">↻</span>
-      Surprise Me!
+       <a class="icon"(click)="onSurpriseClick()" >↻ Surprise Me!</a>
     </button>
   `,
   styles: [`
@@ -24,7 +24,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: background-color 0.3s;
     }
 
     .surprise-button:hover {
@@ -33,6 +32,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
     .icon {
       font-size: 18px;
+      
     }
   `]
 })
@@ -41,6 +41,5 @@ export class SurpriseButtonComponent {
   @Output() surprise = new EventEmitter <any>;
   onSurpriseClick() {
     this.surprise.emit();
-    console.log('Surprise button clicked!');
   }
 }

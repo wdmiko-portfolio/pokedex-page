@@ -4,6 +4,8 @@ import { PokemonApiService } from '../../../z-services/pokemon-api.service';
 import { DropdownComponent } from '../../../components/dropdown.component';
 import { SurpriseButtonComponent } from '../../../components/surprise-button.component';
 import { ButtonComponent } from '../../../components/button.component';
+import { PokemonService } from '../../../z-services/pokemon.service';
+import { Router } from '@angular/router';
 interface Pokemon {
   id:number;
   name: string;
@@ -24,7 +26,8 @@ export class PokedexGridComponent implements OnInit {
   offset = 0;
   order:any;
   showMew=false
-  constructor(private pokemonService: PokemonApiService) { }
+  constructor(private pokemonService: PokemonApiService, private pokeService:PokemonService,private route: Router,
+  ) { }
 
   ngOnInit(): void {
     this.showMew=false;
@@ -102,17 +105,30 @@ export class PokedexGridComponent implements OnInit {
 
   }
 
+  async viewPokemon(pokemon:any){
+    
+    try {
+      
+      const pokemonInfo = await this.pokeService.catchPokemon(pokemon.name)as any;
+      this.route.navigate(['/details', pokemonInfo.pokemon_id], { queryParams: {pokemon: false } });
+    } catch (error) {
+      alert("nombre o numero de pokemon desconocido")
+      // console.error('Error fetching Pokémon details:', error);
+    } finally {
+    }
+  }
+
   showMore(): void {
     this.offset += this.limit;
     this.loadPokemons();
   }
 
   getShowMew(){
-    this.showMew = false; // Oculta el elemento
+    this.showMew = true; // Lo muestra nuevamente después de un ciclo
 
     setTimeout(() => {
-      this.showMew = true; // Lo muestra nuevamente después de un ciclo
-    }, 0); // Usa un retraso mínimo
+      this.showMew = false; // Oculta el elemento
+    }, 900); // Usa un retraso mínimo
   }
 
 }

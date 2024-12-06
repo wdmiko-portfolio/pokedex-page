@@ -8,7 +8,7 @@
 
     <div class="grid">
          <div class="pokemon-card" *ngFor="let pokemon of pokemons">
-                 <div class="pokemon-img">
+                 <div class="pokemon-img"  (click)="viewPokemon(pokemon)">
                      <img [src]="pokemon.sprite" [alt]="pokemon.name" class="pokemon-sprite" />
                 </div>
                 <div class="pokemon-details">
@@ -27,9 +27,7 @@
     <app-button style="margin-bottom: 20px;"  (click)="showMore()" class="btn-menu" textcolor="text-white" text="See More" color="secondary"></app-button>
 
 
-<div *ngIf="showMew" style="position: absolute; top: 0;" [ngClass]="showMew? 'mew-scale':''" class="mew mew-scale">
-    <img  src="assets/img/mew.png" alt="IMAGEN DE MEW">
-</div>
+    <img *ngIf="showMew" style="position: absolute; top: 0;" [ngClass]="showMew? 'mew-scale':''" class="mew" src="assets/img/mew.png" alt="IMAGEN DE MEW">
 
 
 

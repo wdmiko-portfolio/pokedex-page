@@ -47,6 +47,7 @@ main {
     justify-content: center;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
     border-radius: 5px;
+    cursor: pointer;
 
   }
   
@@ -73,10 +74,11 @@ main {
     cursor: pointer;
   }
 
-
+ 
 .mew{
-  transform: scale(0.4);
-  
+  width:400px;
+  height: 400px;
+  object-fit: contain;
 }
   
 @keyframes scale {
@@ -97,15 +99,20 @@ main {
     opacity: 0;
   }
 }
-
+@keyframes move-up {
+  0% { transform: translateY(200px); }
+  100% { transform: translateY(-500px); }
+}
 .mew-scale{
-animation: scale 0.9s ease-in-out, fade-out 4s ease-in-out;
+animation: scale 0.9s ease-in-out, fade-out 0.9s ease-in-out, move-up 0.9s;
 transform-origin: center;
 animation-fill-mode: forwards; /* Asegura que el estado final se mantenga */
 
 
 }
 @media screen and (max-width: 650px) {
+
+
   main{
     box-sizing: border-box;
     width: 100vh;
