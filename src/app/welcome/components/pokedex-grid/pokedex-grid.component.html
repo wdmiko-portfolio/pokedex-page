@@ -1,0 +1,36 @@
+
+<main>
+    <div style="padding-top: 20px; margin-bottom: 20px; display: flex;justify-content: space-between;box-sizing: border-box; ">
+            <app-surprise-button style="margin: 20px;" (surprise)="getShowMew()"></app-surprise-button>
+            <app-dropdown style="margin: 20px;" (orderby)="newOrder($event)"></app-dropdown>
+    
+    </div>
+
+    <div class="grid">
+         <div class="pokemon-card" *ngFor="let pokemon of pokemons">
+                 <div class="pokemon-img">
+                     <img [src]="pokemon.sprite" [alt]="pokemon.name" class="pokemon-sprite" />
+                </div>
+                <div class="pokemon-details">
+                    <p style="margin-top:0;">#{{ pokemon.id }}</p>
+                    <h3 style="margin: 0;">{{pokemon.name}}</h3>
+                    <div style="display: flex; width: 100%;">
+                        <div *ngFor="let type of pokemon.types" style="margin-right: 5px; ">
+                            <p style="padding: 3px; border-radius: 2px;  width:100%; box-sizing: border-box;" [ngClass]="'type-' + type.type.name">{{ type.type.name }}</p>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+        
+    </div>  
+    <app-button style="margin-bottom: 20px;"  (click)="showMore()" class="btn-menu" textcolor="text-white" text="See More" color="secondary"></app-button>
+
+
+<div *ngIf="showMew" style="position: absolute; top: 0;" [ngClass]="showMew? 'mew-scale':''" class="mew mew-scale">
+    <img  src="/wdmiko-portfolio/assets/img/mew.png" alt="IMAGEN DE MEW">
+</div>
+
+
+
+</main>

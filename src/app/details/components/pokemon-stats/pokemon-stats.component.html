@@ -1,0 +1,125 @@
+<main [ngClass]="'background-'+ pokemonDetails.types[0].type.name">
+    
+    <div  class="content">
+
+        <div class="details">
+
+            <div class="column-details-1" >
+               
+                <div  class="pokemon-img" style="width: 50%; min-height: 200px; min-width: 200px;"> 
+                    <img   style="width: 100%;" [src]="pokemonDetails.sprite" [alt]="pokemonDetails.name" class="pokemon-sprite" />
+                </div>
+             
+                <div class="stat-power-lines">
+                    <h2 style="color: white;">Stats</h2>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between; ">
+                        <div class="trasnition-hover" style="width: 3rem;display: flex;flex-direction: column-reverse; align-items: center;  margin: 2px;" *ngFor="let stat of statsArray">
+                            <ng-container  *ngFor="let line of isActiveStat(stat.stat_percent)">
+                                <div  [ngClass]="line.line_power ? 'line-power' : 'line'"></div>
+                            </ng-container>
+                        </div>
+                       
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between; font-size: smaller; width: 100%;">
+                        <div *ngFor="let stat of statsArray" style="color: white; width: 3rem; text-size-adjust:inherit; text-align: center; margin: 1px; padding: 3px; box-sizing: border-box; font-size: smaller;"> {{stat.id}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-details-2">
+                <div>
+                    <div style="border: groove; border-radius: 5px;  margin: 10px; background-color: rgb(255, 255, 255);     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);">
+                        <p style="text-align: justify; color: rgb(49, 49, 49); padding: 10px;"><strong>{{replaceNewline(pokemonDetails.species.flavor_text_entries[0].flavor_text) }}</strong></p>
+                    </div>
+                    <div class="pokemon-info-block">
+                        <h2 style="color: white; margin: 10px;">Info</h2>
+                        <div  style="display: flex; justify-content: space-between;">
+                            <div class="col-1">
+                                <label  for="abilities"><strong>Abilities</strong></label>
+                                <div style="display: flex; flex-wrap: wrap; margin-top: 15px; margin-bottom: 15px; gap:10px;">
+                                    <span name="abilities" class="badge" style="background-color: rgb(231, 150, 51); margin: 0;" *ngFor="let ability of pokemonDetails.abilities"><strong>{{ability.ability.name}}</strong></span>
+                                </div>
+
+                                <label for="weight"><strong>Weigh</strong></label>
+                                <div style="margin-top: 15px; margin-bottom: 15px;">
+                                    <span name="weight" class="badge" style="background-color: rgb(255, 239, 230);"><strong>{{pokemonDetails.weight}}</strong></span>
+                                </div>
+
+                                <label for="height"><strong>Height</strong>Height</label>
+                                <div style="margin-top: 15px; margin-bottom: 15px;">
+                                    <span name="height" class="badge" style="background-color: rgb(255, 239, 230);"><strong>{{pokemonDetails.height}}</strong></span>
+                                </div>
+                            </div>
+                            <div style="margin-right: 10px;">
+                                <label for="gender"><strong>Genero</strong></label>
+                                <span *ngIf="species.gender_rate <=0">Genero fluido</span>
+                                <span *ngIf="species.gender_rate == 0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8l112 0c13.3 0 24 10.7 24 24l0 112c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80s0 0 0 0s0 0 0 0s0 0 0 0zM176 416a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"/></svg>
+                                </span>
+                                <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;" *ngIf="pokemonDetails.species.gender_rate >0 && pokemonDetails.species.gender_rate < 8">
+                                    <svg fill="white" height="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path d="M176 288a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM352 176c0 86.3-62.1 158.1-144 173.1l0 34.9 32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0 0 32c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-32-32 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l32 0 0-34.9C62.1 334.1 0 262.3 0 176C0 78.8 78.8 0 176 0s176 78.8 176 176zM271.9 360.6c19.3-10.1 36.9-23.1 52.1-38.4c20 18.5 46.7 29.8 76.1 29.8c61.9 0 112-50.1 112-112s-50.1-112-112-112c-7.2 0-14.3 .7-21.1 2c-4.9-21.5-13-41.7-24-60.2C369.3 66 384.4 64 400 64c37 0 71.4 11.4 99.8 31l20.6-20.6L487 41c-6.9-6.9-8.9-17.2-5.2-26.2S494.3 0 504 0L616 0c13.3 0 24 10.7 24 24l0 112c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L545 140.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176c-50.5 0-96-21.3-128.1-55.4z"/>
+                                    </svg>
+                                </div>
+                                <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;" *ngIf="species.gender_rate == 8">
+                                    <svg fill="white" height="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                        <path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1l0 34.9-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l32 0 0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32 32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0 0-34.9z"/>
+                                    </svg>
+                                </div>
+                                <span *ngIf="pokemonDetails.species.gender_rate >0 && species.gender_rate == 8">Hembra</span>
+
+                                <label for="category"><strong>Categoria</strong></label>
+                                <div style="margin-top: 15px; margin-bottom: 15px;">
+                                    <p name="category" class="badge" style="background-color: rgb(255, 239, 230);"><strong>{{pokemonDetails.category_pokemon}}</strong></p>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <h3>Type</h3>
+                    <div *ngIf="pokemonDetails" style="display: flex; flex-wrap: wrap; width: 100%;">
+                        <span  class="badge trasnition-hover" [ngClass]="'type-' + type.type.name" *ngFor="let type of pokemonDetails.types">
+                          <strong>{{ type.type.name }}</strong>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <h3>Weakness</h3>
+                    <div *ngIf="pokemonDetails" style="display: flex; flex-wrap: wrap; width: 100%;">
+                        <span  class="badge trasnition-hover" [ngClass]="'type-' + type" *ngFor="let type of pokemonDetails.weaknesses">
+                          <strong>{{type}}</strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- EVOLUCION CHAINS -->
+        <div  class="evolution-stats">          
+              <div class="evol-content">
+                <ng-container *ngFor="let evol of evolutions; let i = index">
+              
+                    <div style="aspect-ratio: 1; border-radius: 50%; border-color: rgb(255, 255, 255); border-width: 10px; border-style: solid; display: flex; justify-content: center; align-items: center; width: 150px; flex-direction: column;">
+                        <img style="height: 80%; width: 80%; object-fit: contain; box-sizing: border-box;" [src]="evol.sprites.other.showdown.front_default" [alt]="evol.name" />
+                        <div style="transform: translateY(50px); color: white;"> {{evol.name}}</div>
+                        
+                        <div style="transform: translateY(50px); color: white;  margin: 2px;">
+                            <span style="border-radius: 5px; padding: 1px; margin: 2px;" [ngClass]="'type-' + type.type.name" *ngFor="let type of evol.types">
+                                <strong>{{ type.type.name }}</strong>
+                              </span>
+                        </div>
+
+                    </div>
+              
+                    <div *ngIf="i < evolDetails.length - 1" style="display: flex; align-items: center; justify-content: center; width: 50px;margin-top: 15px;">
+                        <svg style="color: aliceblue;" xmlns="http://www.w3.org/2000/svg" height="5rem" fill="currentColor" class="bi bi-chevron-right rotate-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </div>  
+                </ng-container>
+              </div>        
+        </div>
+    </div>
+</main>
+<ng-template #noMoreEvols>
+</ng-template>
