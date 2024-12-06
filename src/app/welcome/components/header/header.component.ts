@@ -42,11 +42,12 @@ export class HeaderComponent {
   async catchPokemon(pokemon:any) {
 
     try {
-
-      this.pokemonDetails= await this.pokemonService.catchPokemon (pokemon)
+      
+      this.pokemonDetails= await this.pokemonService.catchPokemon (pokemon.toLowerCase())
       this.route.navigate(['/details', this.pokemonDetails.pokemon_id], { queryParams: {pokemon: false } });
     } catch (error) {
-      console.error('Error fetching Pokémon details:', error);
+      alert("nombre o numero de pokemon desconocido")
+      // console.error('Error fetching Pokémon details:', error);
     } finally {
     }
   }

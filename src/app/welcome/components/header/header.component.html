@@ -2,8 +2,8 @@
     <div class="column item1">
         <p style=" width: 100%; color: white; font-size: 1.17em;"> Name or Number</p>
         <div class="search-content">
-            <input  [(ngModel)]="pokemon" name="search-input" style="width: 70%;" type="text" placeholder="Catch them!">
-            <button (click)="catchPokemon(pokemon)" style="background-color: rgb(224, 87, 23);">🔎</button>
+            <input  (keydown.enter)="catchPokemon(pokemon)" [(ngModel)]="pokemon" name="search-input" style="width: 70%;" type="text" placeholder="Catch them!">
+            <button   (click)="catchPokemon(pokemon)" style="background-color: rgb(224, 87, 23);">🔎</button>
         </div>
         <p style="color: white;">Use the Advanced Search to explore Pokemon by type, weakness, ability and more!</p>
     </div>
